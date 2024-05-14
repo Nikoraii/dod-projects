@@ -1,0 +1,24 @@
+.control {
+  display: block;
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-md);
+  font-weight: 500;
+}
+
+.control:hover {
+  color: var(--mantine-color-blue-5);
+  text-decoration: underline;
+  text-underline-offset: 24px;
+}
+
+.controlMobile {
+  display: block;
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-md);
+  font-weight: 500;
+}
+
+.controlMobile:hover {
+  color: var(--mantine-color-blue-5);
+}
+  

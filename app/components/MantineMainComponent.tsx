@@ -2,6 +2,7 @@
 import { AppShell, Burger, Group, UnstyledButton, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import Link from 'next/link';
+import classes from "./MantineMainComponent.module.css";
 
 // Main Mantine Component from their Navbar example: https://mantine.dev/app-shell/?e=MobileNavbar
 export function MantineMainComponent({
@@ -28,16 +29,16 @@ export function MantineMainComponent({
             <Text fw={500}>DoD Projects</Text>
             </UnstyledButton>
             <Group ml="xl" gap={14} visibleFrom="sm">
-              <UnstyledButton component={Link} href='/'>HOME</UnstyledButton>
-              <UnstyledButton component={Link} href='/projects'>PROJECTS</UnstyledButton>
+              <UnstyledButton component={Link} className={classes.control} href='/'>HOME</UnstyledButton>
+              <UnstyledButton component={Link} className={classes.control} href='/projects'>PROJECTS</UnstyledButton>
             </Group>
           </Group>
         </Group>
       </AppShell.Header>
 
       <AppShell.Navbar py="md" px={8}>
-        <UnstyledButton component={Link} href='/' onClick={toggle}>HOME</UnstyledButton>
-        <UnstyledButton component={Link} href='/projects' onClick={toggle}>PROJECTS</UnstyledButton>
+        <UnstyledButton component={Link} className={classes.controlMobile} href='/' onClick={toggle}>HOME</UnstyledButton>
+        <UnstyledButton component={Link} className={classes.controlMobile} href='/projects' onClick={toggle}>PROJECTS</UnstyledButton>
       </AppShell.Navbar>
       {/* Header end */}
 
