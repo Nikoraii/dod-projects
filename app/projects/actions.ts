@@ -47,3 +47,12 @@ export async function filterData(formData: FormData) {
 
     return data;
 }
+
+export async function fetchRelease(name: string) {
+    const response = await fetch("https://code.mil/code.json");
+    const data: DoD = await response.json();
+
+    const releases: Release[] = data.releases;
+
+    return releases.find((release: Release) => release.name === name);
+}
