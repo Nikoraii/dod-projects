@@ -15,6 +15,7 @@ export default function Projects() {
                 setData(data);
             });
     }, []);
+
     return (
         <>
             {data && (
@@ -39,7 +40,7 @@ export default function Projects() {
                                     &nbsp;{release.organization && (<Text span c="dimmed">&nbsp;{release.organization}</Text>)}
                                 </div>
                                 <div>
-                                    <Text span ff="monospace" c="dimmed">{release.version && (release.version + " - ")}</Text><Badge>{release.status}</Badge>
+                                    <Text span ff="monospace" c="dimmed">{release.version && (release.version + " - ")}</Text><ColorBadge status={release.status} />
                                 </div>
                             </Flex>
                         </Paper>
@@ -48,4 +49,21 @@ export default function Projects() {
             )}
         </>
     )
+}
+
+function ColorBadge({ status }: {status: string}) {
+    switch (status) {
+        case 'Production':
+            return <Badge color="green">{status}</Badge>;
+        case 'Archival':
+            return <Badge color="gray">{status}</Badge>;
+        case 'Development':
+            return <Badge color="blue">{status}</Badge>;
+        case 'Release Candidate':
+            return <Badge color="yellow">{status}</Badge>;
+        case 'Alpha v0.11 (Prototype)':
+            return <Badge color="orange">{status}</Badge>;
+        default:
+            return <Badge color="cyan">{status}</Badge>;
+    }
 }
