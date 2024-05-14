@@ -43,7 +43,6 @@ export default function Projects() {
                 const uniqueTags = [
                     ...new Set(data.releases.reduce((releasesTags: string[], rel: Release) => [...releasesTags, ...rel.tags], []))
                 ];
-                console.log(uniqueTags);
                 // Set sorted unique tags
                 setTags(uniqueTags.sort());
 
@@ -54,7 +53,6 @@ export default function Projects() {
                 // Some of the values are 'undefined' as not all of the projects have organization property
                 // Filter them out
                 const cleanOrgs = uniqueOrgs.filter(item => item);
-                console.log(cleanOrgs);
                 setOrgs(cleanOrgs);
             });
     }, []);
@@ -71,9 +69,6 @@ export default function Projects() {
         const value = inputValue;
         const name = inputName;
 
-        // Test log
-        console.log(name + " - " + value);
-
         setFormState(prev => ({
             ...prev,
             [name]: value
@@ -89,8 +84,9 @@ export default function Projects() {
         const formData = new FormData(event.currentTarget);
 
         // Get filtered data
-        const filteredData = filterData(formData);
-        console.log(filteredData);
+        const filteredData: DoD = await filterData(formData);
+        setActivePage(1);
+        setData(filteredData);
     });
 
     return (
