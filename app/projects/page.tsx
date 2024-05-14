@@ -85,10 +85,13 @@ export default function Projects() {
         resetData();
     };
 
+    // Return data back to default
     async function resetData() {
         const defaultData = await fetchData();
         setActivePage(1);
         setData(defaultData);
+        setSegmentValue("Organization");
+        setOrder("DESC");
     }
 
     // Sort and set data
