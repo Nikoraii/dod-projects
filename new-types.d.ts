@@ -19,7 +19,7 @@ type Release = {
     languages: string[],
     tags: string[],
     contact: Contact,
-    date: Date,
+    date: DateRelease,
     permissions: Permission
 }
 
@@ -29,7 +29,7 @@ type Contact = {
     URL: string
 }
 
-type Date = {
+type DateRelease = {
     created: string,
     lastModified: string,
     metadataLastUpdated: string
