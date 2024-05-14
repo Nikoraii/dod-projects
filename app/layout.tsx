@@ -1,6 +1,7 @@
 import '@mantine/core/styles.css';
 import type { Metadata } from "next";
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+import { MantineMainComponent } from './components/MantineMainComponent';
 
 export const metadata: Metadata = {
   title: 'DoD Projects',
@@ -20,7 +21,9 @@ export default function RootLayout({
       </head>
       <body>
         <MantineProvider defaultColorScheme='dark'>
-          {children}
+          <MantineMainComponent>
+            {children}
+          </MantineMainComponent>
         </MantineProvider>
       </body>
     </html>
