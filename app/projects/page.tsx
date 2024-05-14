@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { fetchData } from "./actions";
 import { Flex, Paper, Stack, UnstyledButton, Text, Badge, Pagination, TextInput, Select, MultiSelect, Button } from "@mantine/core";
 import Link from "next/link";
@@ -80,9 +80,21 @@ export default function Projects() {
         }));
     };
 
+    // On form submit
+    const submitFilters = (async (event: FormEvent<HTMLFormElement>) => {
+        // Prevent page refresh
+        event.preventDefault();
+
+        // Get form values
+        const formData = new FormData(event.currentTarget);
+        
+        // Log form values
+        console.log(formData);
+    });
+
     return (
         <>
-            <form id="form">
+            <form id="form" onSubmit={submitFilters}>
                 <Flex
                     gap="md"
                     justify="flex-start"
