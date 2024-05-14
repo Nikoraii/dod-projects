@@ -1,9 +1,10 @@
 "use client";
-import { AppShell, Burger, Group, UnstyledButton, Text, ActionIcon, useMantineColorScheme, useComputedColorScheme, Image } from '@mantine/core';
+import { AppShell, Burger, Group, UnstyledButton, Text, ActionIcon, useMantineColorScheme, useComputedColorScheme, Image, Center } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import Link from 'next/link';
 import classes from "./MantineMainComponent.module.css";
 import { MdDarkMode, MdLightMode } from 'react-icons/md';
+import { Suspense } from 'react';
 
 // Main Mantine Component from their Navbar example: https://mantine.dev/app-shell/?e=MobileNavbar
 export function MantineMainComponent({
@@ -77,10 +78,20 @@ export function MantineMainComponent({
       {/* Header end */}
 
       {/* Same as <main></main> */}
-      <AppShell.Main>
-        {children}
+      <AppShell.Main mih='96.75vh'>
+        <Suspense>
+          {children}
+        </Suspense>
       </AppShell.Main>
 
+      {/* Footer start */}
+      <AppShell.Footer p={4} pos='static' bg={computedColorScheme === 'dark' ? 'dark.4' : 'gray.4'}>
+        <Center>
+          <Text size="sm">Made with &hearts; by <UnstyledButton c='blue.4' component={Link} href='https://www.nikolastancic.com/' target='_blank'>Niko</UnstyledButton></Text>
+        </Center>
+      </AppShell.Footer>
+      {/* Footer end */}
+      
     </AppShell>
   );
 }
