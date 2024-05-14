@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { fetchRelease } from "../actions";
-import { Flex, Title, Text, Group, Tooltip, UnstyledButton, Paper, Box, List } from "@mantine/core";
+import { Flex, Title, Text, Group, Tooltip, UnstyledButton, Paper, Box, List, Badge } from "@mantine/core";
 import Link from "next/link";
 import { GoLaw } from "react-icons/go";
 import ColorBadge from "@/app/components/UI/ColorBadge";
@@ -117,6 +117,13 @@ export default function Project({ params }: { params: { slug: string } }) {
                             }
                         </Flex>
                     </Paper>
+                    {data?.tags?.length > 0 && (
+                        <Flex wrap="wrap" gap={10} mt={10} justify="center">
+                            {data.tags.map((tag: string) => {
+                                return (<Badge variant="light" color="gray" size="sm" radius="sm" key={tag}>{tag}</Badge>);
+                            })}
+                        </Flex>
+                    )}
                 </>
             )}
             {isWrongData && (<div>ERROR: WRONG URL</div>)}
