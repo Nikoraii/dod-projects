@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { fetchData } from "./actions";
+import { fetchData, filterData } from "./actions";
 import { Flex, Paper, Stack, UnstyledButton, Text, Badge, Pagination, TextInput, Select, MultiSelect, Button } from "@mantine/core";
 import Link from "next/link";
 import classes from './page.module.css';
@@ -87,9 +87,10 @@ export default function Projects() {
 
         // Get form values
         const formData = new FormData(event.currentTarget);
-        
-        // Log form values
-        console.log(formData);
+
+        // Get filtered data
+        const filteredData = filterData(formData);
+        console.log(filteredData);
     });
 
     return (
