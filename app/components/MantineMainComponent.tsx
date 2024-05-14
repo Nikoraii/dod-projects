@@ -1,5 +1,5 @@
 "use client";
-import { AppShell, Burger, Group, UnstyledButton, Text, ActionIcon, useMantineColorScheme, useComputedColorScheme } from '@mantine/core';
+import { AppShell, Burger, Group, UnstyledButton, Text, ActionIcon, useMantineColorScheme, useComputedColorScheme, Image } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import Link from 'next/link';
 import classes from "./MantineMainComponent.module.css";
@@ -30,8 +30,11 @@ export function MantineMainComponent({
         <Group h="100%" px="md">
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="xs" />
           <Group justify="space-between" flex={1}>
-            <UnstyledButton component={Link} href="/">
-              <Text fw={500}>DoD Projects</Text>
+            <UnstyledButton component={Link} href="/" className={classes.controlLogo}>
+            <Group>
+                <Image src='/us-flag.png' alt='US Flag' h={35} />
+                <Text fw={500}>DoD Projects</Text>
+              </Group>
             </UnstyledButton>
             {/* Toggle theme mobile */}
             <ActionIcon

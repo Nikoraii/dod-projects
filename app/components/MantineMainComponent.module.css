@@ -21,4 +21,7 @@
 .controlMobile:hover {
   color: var(--mantine-color-blue-5);
 }
-  
+
+.controlLogo:hover {
+  color: var(--mantine-color-blue-5);
+}
