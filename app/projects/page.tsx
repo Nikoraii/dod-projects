@@ -22,6 +22,16 @@ export default function Projects() {
     const [tags, setTags] = useState<string[]>([]);
     const [orgs, setOrgs] = useState<string[]>([]);
 
+    const initialFormState = {
+        name: '',
+        status: null,
+        organization: null,
+        tags: []
+    }
+    const [formState, setFormState] = useState(initialFormState);
+
+
+    // Initial data fetch
     useEffect(() => {
         fetchData()
             .then((res) => res)
@@ -56,6 +66,20 @@ export default function Projects() {
         setActivePage(page);
     };
 
+    // On input value change
+    const handleChange = (inputName: string, inputValue: any) => {
+        const value = inputValue;
+        const name = inputName;
+
+        // Test log
+        console.log(name + " - " + value);
+
+        setFormState(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
     return (
         <>
             <form id="form">
@@ -71,6 +95,8 @@ export default function Projects() {
                         placeholder="Project name"
                         name="name"
                         defaultValue=""
+                        value={formState.name}
+                        onChange={(event) => handleChange(event.currentTarget.name, event.currentTarget.value)}
                         w={{ base: "100%", sm: "fit-content" }}
                     />
                     <Select
@@ -78,21 +104,28 @@ export default function Projects() {
                         data={['Production', 'Archival', 'Development', 'Release Candidate', 'Alpha v0.11 (Prototype)']}
                         name="status"
                         defaultValue=""
+                        value={formState.status}
+                        onChange={(_value, option) => {handleChange("status", option.value)}}
                         w={{ base: "100%", sm: "fit-content" }}
                     />
                     <Select
                         placeholder="Organization"
-                        data={["Org1", "Org2", "Org3"]}
+                        data={orgs && orgs}
                         searchable
                         name="organization"
                         defaultValue=""
+                        value={formState.organization}
+                        onChange={(_value, option) => {handleChange("organization", option.value)}}
                         w={{ base: "100%", sm: "fit-content" }}
                     />
                     <MultiSelect
                         placeholder="Project tags"
+                        data={tags && tags}
                         searchable
                         clearable
                         name="tags"
+                        value={formState.tags}
+                        onChange={(value) => handleChange("tags", value)}
                         w={{ base: "100%", sm: "fit-content" }}
                     />
                     <Flex
