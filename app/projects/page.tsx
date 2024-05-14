@@ -2,9 +2,10 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import { fetchData, filterData } from "./actions";
-import { Flex, Paper, Stack, UnstyledButton, Text, Badge, Pagination, TextInput, Select, MultiSelect, Button } from "@mantine/core";
+import { Flex, Paper, Stack, UnstyledButton, Text, Badge, Pagination, TextInput, Select, MultiSelect, Button, Box, SegmentedControl } from "@mantine/core";
 import Link from "next/link";
 import classes from './page.module.css';
+import { FaSortAlphaDown, FaSortAlphaUp } from "react-icons/fa";
 
 function chunk(releases: Release[] | [], size: number): any {
     if (!releases.length) {
@@ -21,6 +22,10 @@ export default function Projects() {
 
     const [tags, setTags] = useState<string[]>([]);
     const [orgs, setOrgs] = useState<string[]>([]);
+
+    // Default values for sorting
+    const [segmentValue, setSegmentValue] = useState<string>("Organization");
+    const [order, setOrder] = useState<string>("DESC");
 
     const initialFormState = {
         name: '',
@@ -85,6 +90,32 @@ export default function Projects() {
         setActivePage(1);
         setData(defaultData);
     }
+
+    // Sort and set data
+    function sortData(value: string, ord: string): void {
+        const valueLowerCase = value.toLowerCase();
+        let sortedReleases: Release[] | undefined;
+        if (ord === "ASC") {
+            sortedReleases = data?.releases?.toSorted((a: any, b: any) => b[valueLowerCase]?.localeCompare(a[valueLowerCase]));
+        } else {
+            sortedReleases = data?.releases?.toSorted((a: any, b: any) => a[valueLowerCase]?.localeCompare(b[valueLowerCase]));
+        }
+        const sortedData: DoD = {
+            ...data,
+            releases: sortedReleases
+        } as DoD;
+
+        setData(sortedData);
+    };
+
+    // Update order: Ascending or Descending
+    const updateOrder = (() => {
+        setOrder(prevOrder => {
+            const newOrder = prevOrder === "ASC" ? "DESC" : "ASC";
+            sortData(segmentValue, newOrder);
+            return newOrder;
+        });
+    });
 
     // On form submit
     const submitFilters = (async (event: FormEvent<HTMLFormElement>) => {
@@ -158,6 +189,20 @@ export default function Projects() {
                         <Button color="gray" onClick={handleClear}>CLEAR</Button>
                         <Button color="blue" type="submit">SEARCH</Button>
                     </Flex>
+                    <Box ml={{ sm: "auto" }}>
+                            <SegmentedControl mr={10} data={['Organization', 'Name', 'Status']} defaultValue="Organization" value={segmentValue} onChange={((value: string) => {
+                                setSegmentValue(value);
+                                sortData(value, order);
+                            })} />
+                            <Button variant="light" color="gray" onClick={updateOrder}>
+                                {order === "ASC" && (
+                                    <FaSortAlphaUp />
+                                )}
+                                {order === "DESC" && (
+                                    <FaSortAlphaDown />
+                                )}
+                            </Button>
+                        </Box>
                 </Flex>
             </form>
             {data && (
