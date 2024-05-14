@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { fetchData } from "./actions";
-import { Flex, Paper, Stack, UnstyledButton, Text, Badge, Pagination } from "@mantine/core";
+import { Flex, Paper, Stack, UnstyledButton, Text, Badge, Pagination, TextInput, Select, MultiSelect, Button } from "@mantine/core";
 import Link from "next/link";
 import classes from './page.module.css';
 
@@ -36,6 +36,55 @@ export default function Projects() {
 
     return (
         <>
+            <form id="form">
+                <Flex
+                    gap="md"
+                    justify="flex-start"
+                    align='center'
+                    direction="row"
+                    wrap="wrap"
+                    mb={10}
+                >
+                    <TextInput
+                        placeholder="Project name"
+                        name="name"
+                        defaultValue=""
+                        w={{ base: "100%", sm: "fit-content" }}
+                    />
+                    <Select
+                        placeholder="Project status"
+                        data={['Production', 'Archival', 'Development', 'Release Candidate', 'Alpha v0.11 (Prototype)']}
+                        name="status"
+                        defaultValue=""
+                        w={{ base: "100%", sm: "fit-content" }}
+                    />
+                    <Select
+                        placeholder="Organization"
+                        data={["Org1", "Org2", "Org3"]}
+                        searchable
+                        name="organization"
+                        defaultValue=""
+                        w={{ base: "100%", sm: "fit-content" }}
+                    />
+                    <MultiSelect
+                        placeholder="Project tags"
+                        searchable
+                        clearable
+                        name="tags"
+                        w={{ base: "100%", sm: "fit-content" }}
+                    />
+                    <Flex
+                        gap="md"
+                        justify="center"
+                        align="center"
+                        direction="row"
+                        wrap="wrap"
+                    >
+                        <Button color="gray">CLEAR</Button>
+                        <Button color="blue" type="submit">SEARCH</Button>
+                    </Flex>
+                </Flex>
+            </form>
             {data && (
                 <>
                     <Stack
