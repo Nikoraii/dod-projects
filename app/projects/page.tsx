@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchData } from "./actions";
 
 export default function Projects() {
-    const [data, setData] = useState<any>(undefined);
+    const [data, setData] = useState<DoD | undefined>(undefined);
 
     useEffect(() => {
         fetchData()
@@ -19,7 +19,7 @@ export default function Projects() {
                 Projects page
             </div>
             {data && (
-                <div>{JSON.stringify(data)}</div>
+                <div>{JSON.stringify(data)  }</div>
             )}
         </>
     )
