@@ -19,11 +19,33 @@ export default function Projects() {
     const [data, setData] = useState<DoD | undefined>(undefined);
     const [activePage, setActivePage] = useState(1);
 
+    const [tags, setTags] = useState<string[]>([]);
+    const [orgs, setOrgs] = useState<string[]>([]);
+
     useEffect(() => {
         fetchData()
             .then((res) => res)
             .then((data) => {
+                // Set data with fetched data
                 setData(data);
+
+                // Get unique tags
+                const uniqueTags = [
+                    ...new Set(data.releases.reduce((releasesTags: string[], rel: Release) => [...releasesTags, ...rel.tags], []))
+                ];
+                console.log(uniqueTags);
+                // Set sorted unique tags
+                setTags(uniqueTags.sort());
+
+                // Get unique organizations
+                const uniqueOrgs = [
+                    ...new Set(data.releases.map((item: Release) => item?.organization))
+                ]
+                // Some of the values are 'undefined' as not all of the projects have organization property
+                // Filter them out
+                const cleanOrgs = uniqueOrgs.filter(item => item);
+                console.log(cleanOrgs);
+                setOrgs(cleanOrgs);
             });
     }, []);
 
