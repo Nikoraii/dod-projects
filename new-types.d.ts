@@ -20,7 +20,7 @@ type Release = {
     tags: string[],
     contact: Contact,
     date: Date,
-
+    permissions: Permission
 }
 
 type Contact = {
@@ -35,7 +35,7 @@ type Date = {
     metadataLastUpdated: string
 }
 
-type Permissions = {
+type Permission = {
     licenses: Licenses[],
     usageType: string
 }
