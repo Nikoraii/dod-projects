@@ -75,6 +75,17 @@ export default function Projects() {
         }));
     };
 
+    const handleClear = () => {
+        setFormState(initialFormState);
+        resetData();
+    };
+
+    async function resetData() {
+        const defaultData = await fetchData();
+        setActivePage(1);
+        setData(defaultData);
+    }
+
     // On form submit
     const submitFilters = (async (event: FormEvent<HTMLFormElement>) => {
         // Prevent page refresh
@@ -144,7 +155,7 @@ export default function Projects() {
                         direction="row"
                         wrap="wrap"
                     >
-                        <Button color="gray">CLEAR</Button>
+                        <Button color="gray" onClick={handleClear}>CLEAR</Button>
                         <Button color="blue" type="submit">SEARCH</Button>
                     </Flex>
                 </Flex>
